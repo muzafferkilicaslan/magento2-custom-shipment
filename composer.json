@@ -1,0 +1,22 @@
+{
+    "name": "shipment/module-customshipment",
+    "description": "Custom shipment module",
+    "type": "magento2-module",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Muzaffer Kılıçaslan",
+            "email": "muzafferkilicaslann@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Shipment\\CustomShipment\\": ""
+        }
+    }
+}
