@@ -7,6 +7,9 @@
 				<is_sandbox/>
                 <model>Shipment\CustomShipment\Model\Carrier\Shipping</model>
                 <price>20</price>
+                <weight_limit_for_min_price/>
+                <additional_price/>
+                <maximum_weight_limit/>
 			</express_shipping>
 		</carriers>
 	</default>
