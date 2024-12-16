@@ -12,6 +12,7 @@ use Magento\Shipping\Model\Rate\Result;
 use Magento\Shipping\Model\Rate\ResultFactory;
 use Psr\Log\LoggerInterface;
 use Shipment\CustomShipment\Helper\Data as Helper;
+use Magento\Framework\Exception\LocalizedException;
 
 class Shipping extends AbstractCarrier implements CarrierInterface
 {
@@ -79,6 +80,7 @@ class Shipping extends AbstractCarrier implements CarrierInterface
     /**
      * @param RateRequest $request
      * @return bool|Result
+     * @throws LocalizedException
      */
     public function collectRates(RateRequest $request)
     {
@@ -91,7 +93,13 @@ class Shipping extends AbstractCarrier implements CarrierInterface
         $maxWeightLimit= $this->helper->maximumWeightLimit();
 
         if ($weight >= $maxWeightLimit) {
-            return false;
+            $error = $this->_rateErrorFactory->create();
+            $error->setCarrier($this->_code);
+            $error->setCarrierTitle($this->getConfigData('title'));
+            $error->setErrorMessage(
+                __('Max Weight Limit exceeded for this shipping method.')
+            );
+            return $error;
         }
 
         /** @var Result $result */
