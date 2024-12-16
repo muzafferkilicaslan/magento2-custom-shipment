@@ -5,6 +5,8 @@
 			<express_shipping>
 				<is_active/>
 				<is_sandbox/>
+                <model>Shipment\CustomShipment\Model\Carrier\Shipping</model>
+                <price>20</price>
 			</express_shipping>
 		</carriers>
 	</default>
