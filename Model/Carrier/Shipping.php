@@ -11,6 +11,7 @@ use Magento\Shipping\Model\Carrier\CarrierInterface;
 use Magento\Shipping\Model\Rate\Result;
 use Magento\Shipping\Model\Rate\ResultFactory;
 use Psr\Log\LoggerInterface;
+use Shipment\CustomShipment\Helper\Data as Helper;
 
 class Shipping extends AbstractCarrier implements CarrierInterface
 {
@@ -45,10 +46,12 @@ class Shipping extends AbstractCarrier implements CarrierInterface
         LoggerInterface $logger,
         ResultFactory $rateResultFactory,
         MethodFactory $rateMethodFactory,
+        Helper $helper,
         array $data = []
     ) {
         $this->_rateResultFactory = $rateResultFactory;
         $this->_rateMethodFactory = $rateMethodFactory;
+        $this->helper = $helper;
         parent::__construct($scopeConfig, $rateErrorFactory, $logger, $data);
     }
 
@@ -80,6 +83,13 @@ class Shipping extends AbstractCarrier implements CarrierInterface
     public function collectRates(RateRequest $request)
     {
         if (!$this->getConfigFlag('is_active')) {
+            return false;
+        }
+        $weight = $request->getPackageWeight();
+
+        $maxWeightLimit= $this->helper->maximumWeightLimit();
+
+        if ($weight >= $maxWeightLimit) {
             return false;
         }
 
