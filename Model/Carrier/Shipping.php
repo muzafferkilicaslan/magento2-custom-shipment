@@ -97,10 +97,7 @@ class Shipping extends AbstractCarrier implements CarrierInterface
             $error = $this->_rateErrorFactory->create();
             $error->setCarrier($this->_code);
             $error->setCarrierTitle($this->getConfigData('title'));
-            // TODO can get this message from config
-            $error->setErrorMessage(
-                __('Max Weight Limit exceeded for this shipping method.')
-            );
+            $error->setErrorMessage($this->helper->getErrorMessage());
             return $error;
         }
 

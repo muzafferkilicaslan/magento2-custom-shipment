@@ -15,14 +15,17 @@
                 <field id="price" type="text" sortOrder="30" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
                     <label>Price</label>
                 </field>
-                <field id="weight_limit_for_min_price" type="text" sortOrder="30" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                <field id="weight_limit_for_min_price" type="text" sortOrder="40" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
                     <label>Weight Limit For Min Price</label>
                 </field>
-                <field id="additional_price" type="text" sortOrder="30" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                <field id="additional_price" type="text" sortOrder="50" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
                     <label>Additional Price For Exceed Weight Limit</label>
                 </field>
-                <field id="maximum_weight_limit" type="text" sortOrder="30" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                <field id="maximum_weight_limit" type="text" sortOrder="60" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
                     <label>Maximum Weight Limit</label>
+                </field>
+                <field id="error_message" type="textarea" sortOrder="70" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Error Message for Exceed Weight Limit</label>
                 </field>
             </group>
         </section>

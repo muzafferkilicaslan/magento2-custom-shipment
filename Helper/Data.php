@@ -57,4 +57,15 @@ class Data extends AbstractHelper
         );
     }
 
+    /**
+     * @return string
+     */
+    public function getErrorMessage()
+    {
+        return $this->scopeConfig->getValue(
+            'carriers/express_shipping/error_message',
+            ScopeInterface::SCOPE_STORE,
+        );
+    }
+
 }
