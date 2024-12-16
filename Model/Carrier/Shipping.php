@@ -85,6 +85,7 @@ class Shipping extends AbstractCarrier implements CarrierInterface
         if (!$this->getConfigFlag('is_active')) {
             return false;
         }
+
         $weight = $request->getPackageWeight();
 
         $maxWeightLimit= $this->helper->maximumWeightLimit();
@@ -99,16 +100,25 @@ class Shipping extends AbstractCarrier implements CarrierInterface
         /** @var Method $method */
         $method = $this->_rateMethodFactory->create();
 
+        // PRICE CALCULATION
+        $weightLimitForMinPrice = $this->helper->weightLimitForMinPrice();
+        if ($weight > $this->helper->weightLimitForMinPrice()) {
+            $amount = $this->getShippingPrice();
+            $extraCharge = ($weight - $weightLimitForMinPrice) * $this->helper->additionalPrice();
+            $amount += $extraCharge;
+            $method->setPrice($amount);
+            $method->setCost($amount);
+        } else {
+            $amount = $this->getShippingPrice();
+            $method->setPrice($amount);
+            $method->setCost($amount);
+        }
+
         $method->setCarrier($this->_code);
         $method->setCarrierTitle($this->getConfigData('title'));
 
         $method->setMethod($this->_code);
         $method->setMethodTitle($this->getConfigData('name'));
-
-        $amount = $this->getShippingPrice();
-
-        $method->setPrice($amount);
-        $method->setCost($amount);
 
         $result->append($method);
 
